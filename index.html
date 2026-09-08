@@ -2,12 +2,1147 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="/log.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LK PORT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lokesh Karthikeyan — Full Stack Developer</title>
+    <meta
+      name="description"
+      content="Lokesh Karthikeyan — Full Stack Developer (MERN). Building booking, tracking, and dashboard systems with React, Node.js, and MongoDB."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #0b1120;
+        --panel: #121b2e;
+        --panel-2: #16213a;
+        --line: #243350;
+        --amber: #ffb020;
+        --teal: #34d1bf;
+        --text: #e8ecf4;
+        --muted: #8a96ac;
+        --radius: 10px;
+        --display: "Space Grotesk", sans-serif;
+        --body: "Inter", sans-serif;
+        --mono: "JetBrains Mono", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--ink);
+        color: var(--text);
+        font-family: var(--body);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(var(--line) 1px, transparent 1px),
+          linear-gradient(90deg, var(--line) 1px, transparent 1px);
+        background-size: 64px 64px;
+        opacity: 0.05;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--amber);
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+
+      /* ---------- NAV ---------- */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        backdrop-filter: blur(10px);
+        background: rgba(11, 17, 32, 0.72);
+        border-bottom: 1px solid transparent;
+        transition:
+          border-color 0.3s ease,
+          background 0.3s ease;
+      }
+      header.scrolled {
+        border-bottom-color: var(--line);
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 24px;
+        max-width: 1080px;
+        margin: 0 auto;
+      }
+
+      .brand {
+        font-family: var(--mono);
+        font-weight: 500;
+        font-size: 15px;
+        letter-spacing: 0.02em;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .brand .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--amber);
+        box-shadow: 0 0 8px var(--amber);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 28px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .nav-links a {
+        transition: color 0.2s ease;
+        position: relative;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      .nav-status {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--teal);
+        border: 1px solid rgba(52, 209, 191, 0.35);
+        background: rgba(52, 209, 191, 0.08);
+        padding: 6px 12px;
+        border-radius: 100px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+      }
+      .nav-status::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--teal);
+        animation: pulse 2s infinite;
+      }
+
+      .nav-toggle {
+        display: none;
+        background: none;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        color: var(--text);
+        width: 38px;
+        height: 38px;
+        font-family: var(--mono);
+        cursor: pointer;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.35;
+        }
+      }
+
+      /* ---------- HERO ---------- */
+      .hero {
+        position: relative;
+        z-index: 1;
+        padding: 168px 0 96px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .board-label {
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--amber);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+      .board-label .line {
+        width: 32px;
+        height: 1px;
+        background: var(--amber);
+      }
+
+      h1.headline {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: clamp(2.4rem, 6vw, 4.4rem);
+        line-height: 1.05;
+        letter-spacing: -0.01em;
+        max-width: 14ch;
+      }
+
+      h1.headline .flap {
+        display: inline-block;
+        color: var(--amber);
+      }
+
+      .hero-sub {
+        margin-top: 24px;
+        font-size: clamp(1rem, 1.6vw, 1.15rem);
+        color: var(--muted);
+        max-width: 56ch;
+      }
+
+      .hero-meta {
+        margin-top: 36px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .hero-meta span {
+        border: 1px solid var(--line);
+        padding: 7px 12px;
+        border-radius: 6px;
+        background: var(--panel);
+      }
+
+      .hero-cta {
+        margin-top: 40px;
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        font-family: var(--body);
+        font-weight: 600;
+        font-size: 14px;
+        padding: 13px 24px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease,
+          background 0.15s ease;
+        cursor: pointer;
+        border: 1px solid transparent;
+      }
+      .btn-primary {
+        background: var(--amber);
+        color: #1a1305;
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px rgba(255, 176, 32, 0.25);
+      }
+
+      .btn-ghost {
+        border-color: var(--line);
+        color: var(--text);
+        background: transparent;
+      }
+      .btn-ghost:hover {
+        border-color: var(--teal);
+        color: var(--teal);
+        transform: translateY(-2px);
+      }
+
+      /* ---------- SECTION SHELL ---------- */
+      section {
+        position: relative;
+        z-index: 1;
+        padding: 88px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--teal);
+        margin-bottom: 14px;
+      }
+
+      h2.section-title {
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+        margin-bottom: 16px;
+      }
+
+      .section-intro {
+        color: var(--muted);
+        max-width: 60ch;
+        margin-bottom: 52px;
+      }
+
+      /* ---------- ABOUT ---------- */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 56px;
+        align-items: start;
+      }
+      .about-body p {
+        color: var(--muted);
+        margin-bottom: 16px;
+        max-width: 56ch;
+      }
+      .about-body strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .stat-strip {
+        display: grid;
+        gap: 18px;
+      }
+      .stat {
+        border: 1px solid var(--line);
+        background: var(--panel);
+        border-radius: var(--radius);
+        padding: 18px 20px;
+      }
+      .stat .num {
+        font-family: var(--display);
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--amber);
+      }
+      .stat .label {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      /* ---------- WORK / ROUTE ---------- */
+      .route {
+        position: relative;
+        padding-left: 36px;
+      }
+      .route::before {
+        content: "";
+        position: absolute;
+        left: 7px;
+        top: 6px;
+        bottom: 6px;
+        width: 2px;
+        background: linear-gradient(var(--amber), var(--teal) 60%, var(--line));
+      }
+
+      .stop {
+        position: relative;
+        margin-bottom: 28px;
+      }
+      .stop::before {
+        content: "";
+        position: absolute;
+        left: -36px;
+        top: 26px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--ink);
+        border: 2px solid var(--amber);
+        z-index: 2;
+      }
+      .stop.dim::before {
+        border-color: var(--line);
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        background: var(--panel);
+        border-radius: var(--radius);
+        padding: 26px 28px;
+        transition:
+          border-color 0.2s ease,
+          transform 0.2s ease;
+      }
+      .card:hover {
+        border-color: var(--teal);
+        transform: translateY(-2px);
+      }
+
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
+
+      .card-title {
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: 1.25rem;
+      }
+
+      .status {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 5px 10px;
+        border-radius: 100px;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .status::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+      .status-live {
+        color: var(--teal);
+        background: rgba(52, 209, 191, 0.08);
+        border: 1px solid rgba(52, 209, 191, 0.35);
+      }
+      .status-live::before {
+        background: var(--teal);
+      }
+      .status-progress {
+        color: var(--amber);
+        background: rgba(255, 176, 32, 0.08);
+        border: 1px solid rgba(255, 176, 32, 0.35);
+      }
+      .status-progress::before {
+        background: var(--amber);
+      }
+      .status-soon {
+        color: var(--muted);
+        background: transparent;
+        border: 1px solid var(--line);
+      }
+      .status-soon::before {
+        background: var(--muted);
+      }
+
+      .card-desc {
+        color: var(--muted);
+        margin-bottom: 16px;
+        max-width: 64ch;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+      .tag {
+        font-family: var(--mono);
+        font-size: 11.5px;
+        color: var(--text);
+        border: 1px solid var(--line);
+        background: var(--panel-2);
+        padding: 4px 10px;
+        border-radius: 6px;
+      }
+
+      .card-links {
+        display: flex;
+        gap: 18px;
+        font-size: 13.5px;
+        font-weight: 600;
+      }
+      .card-links a {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--teal);
+      }
+      .card-links a:hover {
+        color: var(--amber);
+      }
+      .card-links .disabled {
+        color: var(--muted);
+        cursor: default;
+      }
+
+      .stop.placeholder .card {
+        background: transparent;
+        border-style: dashed;
+      }
+      .stop.placeholder .card-title {
+        color: var(--muted);
+      }
+      .stop.placeholder .card-desc {
+        font-size: 14px;
+      }
+
+      /* ---------- SKILLS ---------- */
+      .skill-groups {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 28px;
+      }
+      .skill-group h3 {
+        font-family: var(--mono);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--amber);
+        margin-bottom: 14px;
+      }
+      .chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .chip {
+        font-family: var(--mono);
+        font-size: 12.5px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        color: var(--text);
+      }
+
+      /* ---------- TIMELINE ---------- */
+      .schedule {
+        display: flex;
+        flex-direction: column;
+      }
+      .sched-row {
+        display: grid;
+        grid-template-columns: 140px 1fr;
+        gap: 24px;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .sched-row:last-child {
+        border-bottom: none;
+      }
+      .sched-time {
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--teal);
+        white-space: nowrap;
+      }
+      .sched-title {
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .sched-desc {
+        color: var(--muted);
+        font-size: 14.5px;
+        max-width: 60ch;
+      }
+
+      /* ---------- CONTACT ---------- */
+      .contact {
+        border-bottom: none;
+      }
+      .contact-grid {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: 36px;
+      }
+      .contact-title {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        max-width: 14ch;
+      }
+      .contact-title span {
+        color: var(--amber);
+      }
+
+      .contact-links {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        font-family: var(--mono);
+        font-size: 14px;
+      }
+      .contact-links a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text);
+      }
+      .contact-links a:hover {
+        color: var(--teal);
+      }
+      .contact-links .arrow {
+        color: var(--amber);
+      }
+
+      footer {
+        padding: 28px 0 40px;
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      /* ---------- RESPONSIVE ---------- */
+      @media (max-width: 860px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+        .nav-links {
+          position: fixed;
+          top: 64px;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          background: var(--ink);
+          border-bottom: 1px solid var(--line);
+          padding: 20px 24px;
+          gap: 16px;
+          transform: translateY(-140%);
+          transition: transform 0.25s ease;
+        }
+        .nav-links.open {
+          transform: translateY(0);
+        }
+        .nav-status {
+          display: none;
+        }
+        .nav-toggle {
+          display: block;
+        }
+        .sched-row {
+          grid-template-columns: 1fr;
+          gap: 6px;
+        }
+        .contact-grid {
+          align-items: flex-start;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <header id="siteHeader">
+      <nav>
+        <a href="#top" class="brand"
+          ><span class="dot"></span>LK<span style="color: var(--muted)">/</span
+          >dev</a
+        >
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+        >
+          ☰
+        </button>
+        <div class="nav-links" id="navLinks">
+          <a href="#work">Work</a>
+          <a href="#skills">Skills</a>
+          <a href="#timeline">Timeline</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <span class="nav-status">Open to work</span>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero wrap" style="padding-top: 168px">
+        <div class="board-label">
+          <span class="line"></span> NOW BOARDING — FULL STACK ROLES
+        </div>
+        <h1 class="headline">
+          Building <span class="flap" id="flap">full-stack</span> apps that
+          people actually use.
+        </h1>
+        <p class="hero-sub">
+          I'm Lokesh Karthikeyan, a Full Stack Developer based in
+          Chennai. I design and ship end-to-end web and mobile apps — from
+          seat-selection flows and live location tracking to auth, APIs, and
+          dashboards.
+        </p>
+
+        <div class="hero-meta">
+          <span>📍 Chennai, India</span>
+          <span>🎓 B.E. CSE</span>
+          <span>⚙ Software Developer·</span>
+        </div>
+
+        <div class="hero-cta">
+          <a href="#work" class="btn btn-primary">View my work</a>
+          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+          <a
+            href="resume.pdf"
+            download="Lokesh_Karthikeyan_Resume.pdf"
+            class="btn btn-primary"
+          >
+            Download Resume</a
+          >
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="wrap about-grid">
+          <div>
+            <div class="eyebrow">About</div>
+            <h2 class="section-title">
+              From bootcamp to production-style builds
+            </h2>
+            <div class="about-body">
+              <p>
+                I am a <strong>Software Developer</strong> with a strong focus
+                on Full Stack Development, experienced in building scalable,
+                efficient, and user-focused applications across the complete
+                software development lifecycle. I have strong proficiency in
+                <strong>Python</strong> , using it for backend development,
+                automation, problem-solving, and building efficient software
+                solutions. I work with modern frontend technologies like
+                <strong>React.js</strong> and Flutter, backend frameworks such
+                as <strong>Node.js/Express.js</strong>, and databases including
+                <strong>MongoDB/SQL</strong> to develop robust and maintainable
+                solutions.
+              </p>
+              <p>
+                I have completed intensive Full Stack and MERN stack training,
+                where I gained hands-on experience in designing and developing
+                production-style applications involving authentication, API
+                integration, database management, and real-world business
+                workflows. I enjoy solving complex software engineering
+                problems, especially those involving data accuracy, system
+                reliability, and real-time interactions. I am passionate about
+                building high-quality software solutions and continuously
+                improving my skills while contributing to impactful products as
+                a Software Developer.
+              </p>
+            </div>
+          </div>
+          <div class="stat-strip">
+            <div class="stat">
+              <div class="num">3+</div>
+              <div class="label">Production-style apps shipped</div>
+            </div>
+            <div class="stat">
+              <div class="num">10+</div>
+              <div class="label">
+                Responsive pages/components built (Travel Booking)
+              </div>
+            </div>
+            <div class="stat">
+              <div class="num">2</div>
+              <div class="label">Stacks — MERN &amp; Flutter</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="work">
+        <div class="wrap">
+          <div class="eyebrow">Work</div>
+          <h2 class="section-title">Route so far</h2>
+          <p class="section-intro">
+            Projects listed in the order they were built — like stops on a
+            route, each one further along than the last.
+          </p>
+
+          <div class="route">
+            <div class="stop">
+              <div class="card">
+                <div class="card-top">
+                  <div class="card-title">Expense Tracker</div>
+                  <div class="status status-live">Complete</div>
+                  <!--  //for up comming status-progress -->
+                </div>
+                <p class="card-desc">
+                  Full-stack expense tracking app with JWT authentication,
+                  category breakdowns, and monthly spending charts. Add, edit,
+                  and delete expenses and see where your money actually goes.
+                </p>
+                <div class="tags">
+                  <span class="tag">React</span>
+                  <span class="tag">FastAPI</span>
+                  <span class="tag">SQL</span>
+                  <span class="tag">JWT Auth</span>
+                  <span class="tag">Chart.js</span>
+                </div>
+                <div class="card-links">
+                  <a
+                    href="https://spend-wise-ruby-chi.vercel.app/"
+                    target="_blank"
+                    rel="noopener"
+                    >↗ Live demo</a
+                  >
+                  <a
+                    href="https://github.com/lokikathi"
+                    target="_blank"
+                    rel="noopener"
+                    >⌥ Code</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="stop">
+              <div class="card">
+                <div class="card-top">
+                  <div class="card-title">Travel Booking Website</div>
+                  <div class="status status-live">Complete</div>
+                </div>
+                <p class="card-desc">
+                  Full-stack bus booking platform covering route browsing, seat
+                  selection, and online booking. 10+ responsive pages, JWT-based
+                  auth, and a booking management system supporting create,
+                  update, and cancel flows across concurrent requests.
+                </p>
+                <div class="tags">
+                  <span class="tag">MongoDB</span>
+                  <span class="tag">Express.js</span>
+                  <span class="tag">React.js</span>
+                  <span class="tag">Node.js</span>
+                  <span class="tag">JWT Auth</span>
+                </div>
+                <div class="card-links">
+                  <span class="disabled">↗ Live demo — link coming soon</span>
+                  <a
+                    href="https://github.com/lokikathi"
+                    target="_blank"
+                    rel="noopener"
+                    >⌥ Code</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="stop">
+              <div class="card">
+                <div class="card-top">
+                  <div class="card-title">KGI Bus Tracking Application</div>
+                  <div class="status status-live">Complete</div>
+                </div>
+                <p class="card-desc">
+                  Flutter mobile app built with a 4-person team, letting college
+                  students check real-time bus location and routes. Responsive
+                  mobile interfaces across tracking, route list, and
+                  notification screens.
+                </p>
+                <div class="tags">
+                  <span class="tag">Flutter</span>
+                  <span class="tag">Dart</span>
+                  <span class="tag">Real-time tracking</span>
+                  <span class="tag">Team project</span>
+                </div>
+                <div class="card-links">
+                  <span class="disabled"
+                    >📱 Mobile app — campus deployment</span
+                  >
+                  <a
+                    href="https://github.com/lokikathi"
+                    target="_blank"
+                    rel="noopener"
+                    >⌥ Code</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="stop placeholder">
+              <div class="card">
+                <div class="card-top">
+                  <div class="card-title">Next stop — Project 04</div>
+                  <div class="status status-soon">Coming soon</div>
+                </div>
+                <p class="card-desc">
+                  A new build is in planning. Check back soon for details.
+                </p>
+              </div>
+            </div>
+
+            <div class="stop placeholder">
+              <div class="card">
+                <div class="card-top">
+                  <div class="card-title">Next stop — Project 05</div>
+                  <div class="status status-soon">Coming soon</div>
+                </div>
+                <p class="card-desc">
+                  A new build is in planning. Check back soon for details.
+                </p>
+              </div>
+            </div>
+
+            <div class="stop placeholder">
+              <div class="card">
+                <div class="card-top">
+                  <div class="card-title">Next stop — Project 06</div>
+                  <div class="status status-soon">Coming soon</div>
+                </div>
+                <p class="card-desc">
+                  A new build is in planning. Check back soon for details.
+                </p>
+              </div>
+            </div>
+
+            <div class="stop placeholder">
+              <div class="card">
+                <div class="card-top">
+                  <div class="card-title">Next stop — Project 07</div>
+                  <div class="status status-soon">Coming soon</div>
+                </div>
+                <p class="card-desc">
+                  A new build is in planning. Check back soon for details.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="wrap">
+          <div class="eyebrow">Skills</div>
+          <h2 class="section-title">Toolkit</h2>
+          <p class="section-intro">
+            Everything I use day-to-day, grouped by where it sits in the stack.
+          </p>
+
+          <div class="skill-groups">
+            <div class="skill-group">
+              <h3>Languages</h3>
+              <div class="chip-row">
+                <span class="chip">JavaScript</span>
+                <span class="chip">Python</span>
+                <span class="chip">SQL</span>
+                <span class="chip">Dart</span>
+                <span class="chip">HTML5</span>
+                <span class="chip">CSS3</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <h3>Frontend</h3>
+              <div class="chip-row">
+                <span class="chip">React.js</span>
+                <span class="chip">Flutter</span>
+                <span class="chip">Responsive UI/UX</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <h3>Backend</h3>
+              <div class="chip-row">
+                <span class="chip">Node.js</span>
+                <span class="chip">Express.js</span>
+                <span class="chip">REST API Design</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <h3>Database</h3>
+              <div class="chip-row">
+                <span class="chip">MongoDB</span>
+                <span class="chip">SQL</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <h3>Tools &amp; Practice</h3>
+              <div class="chip-row">
+                <span class="chip">Git / GitHub</span>
+                <span class="chip">Auth &amp; Authorization</span>
+                <span class="chip">Agile / Team Projects</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="timeline">
+        <div class="wrap">
+          <div class="eyebrow">Timeline</div>
+          <h2 class="section-title">Training &amp; education</h2>
+
+          <div class="schedule">
+            <div class="sched-row">
+              <div class="sched-time">JUN 2025 —<br />FEB 2026</div>
+              <div>
+                <div class="sched-title">
+                  Full Stack Development — Q-Spiders
+                </div>
+                <div class="sched-desc">
+                  Frontend, backend, and database technologies. Built responsive
+                  web apps using HTML, CSS, JavaScript, React.js, Node.js, and
+                  Express.js.
+                </div>
+              </div>
+            </div>
+            <div class="sched-row">
+              <div class="sched-time">MERN<br />Bootcamp</div>
+              <div>
+                <div class="sched-title">SkillBridge</div>
+                <div class="sched-desc">
+                  Full-stack training covering frontend and backend web
+                  development with MongoDB, Express.js, React.js, and Node.js.
+                </div>
+              </div>
+            </div>
+            <div class="sched-row">
+              <div class="sched-time">Flutter<br />Training</div>
+              <div>
+                <div class="sched-title">Mobile UI/UX Development</div>
+                <div class="sched-desc">
+                  Hands-on training focused on building mobile application
+                  interfaces and user experience in Flutter.
+                </div>
+              </div>
+            </div>
+            <div class="sched-row">
+              <div class="sched-time">OCT 2021 —<br />MAY 2025</div>
+              <div>
+                <div class="sched-title">
+                  B.E. Computer Science and Engineering
+                </div>
+                <div class="sched-desc">
+                  Builders Engineering College — CGPA 7.6
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="contact">
+        <div class="wrap contact-grid">
+          <div>
+            <div class="eyebrow">Contact</div>
+            <div class="contact-title">
+              Let's build the <span>next stop</span> together.
+            </div>
+          </div>
+          <div class="contact-links">
+            <a href="#"><span class="arrow">→</span> 9384570903 , 6381967314</a>
+            <a href="mailto:karthikeyanlokesh7@gmail.com"
+              ><span class="arrow">→</span> karthikeyanlokesh7@gmail.com</a
+            >
+            <a
+              href="https://github.com/lokikathi"
+              target="_blank"
+              rel="noopener"
+              ><span class="arrow">→</span> github.com/lokikathi</a
+            >
+            <a
+              href="https://linkedin.com/in/lokeshkarthikeyan"
+              target="_blank"
+              rel="noopener"
+              ><span class="arrow">→</span> linkedin.com/in/lokeshkarthikeyan</a
+            >
+            <a href="#top"><span class="arrow">→</span> Chennai, India</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrap">
+      <span>© <span id="year"></span> Lokesh Karthikeyan</span>
+      <span>Built with React-flavoured HTML, CSS &amp; a bit of JS</span>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      const header = document.getElementById("siteHeader");
+      window.addEventListener("scroll", () => {
+        header.classList.toggle("scrolled", window.scrollY > 8);
+      });
+
+      const navToggle = document.getElementById("navToggle");
+      const navLinks = document.getElementById("navLinks");
+      navToggle.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", isOpen);
+      });
+      navLinks.querySelectorAll("a").forEach((a) =>
+        a.addEventListener("click", () => {
+          navLinks.classList.remove("open");
+          navToggle.setAttribute("aria-expanded", "false");
+        }),
+      );
+
+      // Signature moment: split-flap style word cycle in the headline,
+      // like a departure board settling on a destination.
+      const flap = document.getElementById("flap");
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      if (flap && !prefersReducedMotion) {
+        const words = ["full-stack", "web", "mobile", "full-stack"];
+        let i = 0;
+        const interval = setInterval(() => {
+          i++;
+          flap.style.opacity = 0;
+          setTimeout(() => {
+            flap.textContent = words[i % words.length];
+            flap.style.opacity = 1;
+          }, 300);
+          if (i >= words.length - 1) clearInterval(interval);
+        }, 800);
+        flap.style.transition = "opacity 0.15s ease";
+      }
+    </script>
   </body>
 </html>
